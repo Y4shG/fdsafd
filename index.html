@@ -32,7 +32,6 @@
 
       a {
         background-color: #00a67e;
-
         color: #ffffff;
         border: none;
         font-size: 24px;
@@ -103,6 +102,13 @@
         const { outcome } = await installPrompt.userChoice;
         installPrompt = null;
       }
+
+      // Scroll up slightly to hide the address bar on mobile browsers
+      window.onload = () => {
+        setTimeout(() => {
+          window.scrollTo(0, 1);
+        }, 100);
+      };
     </script>
   </body>
 </html>
