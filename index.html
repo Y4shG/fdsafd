@@ -84,8 +84,8 @@
     <script>
       if (
         navigator.standalone ||
-        window.matchMedia("(display-mode: standalone)").matches ||
-        location.href.includes("standalone")
+        window.matchMedia("(display-mode: fullscreen)").matches ||
+        location.href.includes("fullscreen")
       ) {
         location.href = "https://chat.openai.com";
       }
