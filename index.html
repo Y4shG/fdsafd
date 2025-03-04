@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="images/logo-64.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="manifest" href="/manifest.json">
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #202123;
+        font-family: Geneva, Tahoma, sans-serif;
+      }
+
+      .center {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      a {
+        background-color: #00a67e;
+
+        color: #ffffff;
+        border: none;
+        font-size: 24px;
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        box-shadow: 0 0 1em #000000;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        color: #ffffff;
+        gap: 1rem;
+        align-items: center;
+        font-size: 18px;
+      }
+
+      #start {
+        display: none;
+      }
+
+      @media all and (display-mode: standalone) {
+        #start {
+          display: flex;
+        }
+
+        #install {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="install" class="center">
+      <div class="info">
+        <div>ChatGPT as a native App</div>
+        <div><a href="javascript:install()">Install ChatPWA</a></div>
+      </div>
+    </div>
+
+    <div id="start" class="center">
+      <a href="https://chat.openai.com">Start Chatting</a>
+    </div>
+
+    <script>
+      if (
+        navigator.standalone ||
+        window.matchMedia("(display-mode: standalone)").matches ||
+        location.href.includes("standalone")
+      ) {
+        location.href = "https://chat.openai.com";
+      }
+
+      let installPrompt = null;
+
+      window.addEventListener("beforeinstallprompt", (event) => {
+        event.preventDefault();
+        installPrompt = event;
+      });
+
+      async function install() {
+        if (!installPrompt) return;
+        installPrompt.prompt();
+        const { outcome } = await installPrompt.userChoice;
+        installPrompt = null;
+      }
+    </script>
+  
+
+</body></html>
